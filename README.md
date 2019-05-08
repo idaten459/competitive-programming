@@ -1,5 +1,6 @@
 # competitive-programming
-競技プログラミングに関するレポジトリ
+競技プログラミングレポジトリ
+
 
 ## library
 競プロライブラリ
