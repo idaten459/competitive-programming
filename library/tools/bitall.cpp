@@ -1,3 +1,7 @@
+/*
+bit全探索を行うライブラリ
+計算量はO(n*2^n)
+*/
 void bitall(){
     vector<int> a = {0,1,2,3};
     ll n = a.size();
