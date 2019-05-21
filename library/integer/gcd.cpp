@@ -1,5 +1,6 @@
 /*
 gcdライブラリ
+単位元は0
 */
 
 template<typename T>
