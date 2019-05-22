@@ -65,6 +65,7 @@ public:
     bool operator>(const ModInt n){return a>n.a;}
     bool operator>=(const ModInt n){return a>=n.a;}
     bool operator==(const ModInt n){return a==n.a;}
+    bool operator!=(const ModInt n){return a!=n.a;}
     //下の関係演算子はpow関数で要請される
     bool operator<(const int n){return a<n;}
     bool operator<=(const int n){return a<=n;}
