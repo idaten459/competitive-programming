@@ -26,7 +26,7 @@ public:
 	T get(const int& k) {//左からk番目の葉を得る
 		return seg[sz - 1 + k];
 	}
-	void update(int k, const T& v) {//k番目の値をvに変更
+	void update(int k, const T& v) {// k 番目の値をvに変更
 		k += sz - 1;
 		seg[k] = v;
 		while (k > 0) {
