@@ -5,6 +5,7 @@ using namespace std;
 #define REP(i,n) for(ll i=0;i<(ll)(n);i++)
 #define RREP(i,n) for(ll i=((ll)(n)-1);i>=0;i--)
 #define FOR(i,n1,n2) for(ll i=(ll)(n1);i<(ll)(n2);i++)
+#define RFOR(i,n1,n2) for(ll i=((ll)(n1)-1);i>=(ll)(n2);i--)
 #define put(a) cout<<a<<"\n"
 #define all(a)  (a).begin(),(a).end()
 #define SORT(a) sort((a).begin(),(a).end())
