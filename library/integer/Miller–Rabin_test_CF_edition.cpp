@@ -4,7 +4,7 @@
 vrify @
     https://yukicoder.me/problems/no/3030
     https://yukicoder.me/submissions/349611
-こどふぉではu128が使えないので、
+こどふぉではu128が使えないので、定数倍遅いけどこっちを使うこと！
 */
 using u32 = unsigned int;
 using u64 = unsigned long long;
