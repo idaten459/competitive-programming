@@ -1,6 +1,7 @@
 /*
 splaytreeという平衡二分探索木の一種
 search,insert,erase,find_orderを木のnode数をnとしてamortized O(logn)で行える
+node数の最大値をNとして空間計算量はO(N)でk番目の値を得るデータ構造としてはかなり少ない
 @verified
 https://atcoder.jp/contests/arc033/submissions/6437113
 
