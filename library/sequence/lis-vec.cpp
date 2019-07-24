@@ -1,33 +1,28 @@
-/*
-lis(最長増加部分列)の復元
-計算量はO(NlogN)
-*/
 template<typename T>
-vector<T> lis_vec(vector<T> a){
-    vector<int> lis;
-    lis.push_back(a[0]);
-    FOR(i,1,a.size()){
-        if(lis.back()<=a[i]){
-            lis.push_back(a[i]);
-        }else{
-            auto itr = lower_bound(all(lis), a[i])-lis.begin();
-            lis[itr]=a[i];
-        }
-    }
-    lis.push_back(INT_MAX);
-    ll m = lis.size();
-    deque<int> dq;
-    for(ll i=n-1;0<=i;--i){
-        if(m>1){
-            if(lis[m-2]<=a[i]&&a[i]<=lis[m-1]){
-                dq.push_front(a[i]);
-                m--;
-            }
-        }
-    }
-    vector<T> rtn;
-    for(auto a:dq){
-        rtn.push_back(a);
-    }
-    return rtn;
+vector<T> lis_vec(vector<T> a, bool broad = true) {//broad=true:広義、false:狭義
+	int n = a.size();
+	vector<T> lis;
+	lis.push_back(a[0]);
+	FOR(i, 1, a.size()) {
+		if (broad) {
+			if (lis.back() <= a[i]) {
+				lis.push_back(a[i]);
+			}
+			else {
+				auto itr = upper_bound(all(lis), a[i]) - lis.begin();
+				lis[itr] = a[i];
+			}
+		}
+		else {
+			if (lis.back() < a[i]) {
+				lis.push_back(a[i]);
+			}
+			else {
+				auto itr = lower_bound(all(lis), a[i]) - lis.begin();
+				lis[itr] = a[i];
+			}
+		}
+
+	}
+	return lis;
 }
