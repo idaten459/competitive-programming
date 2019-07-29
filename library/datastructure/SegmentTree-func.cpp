@@ -1,7 +1,7 @@
 template<typename T>
-T upmax(const T& l, const T& r) {//SegmentTreeのupdate関数
+T upsum(const T& l, const T& r) {//SegmentTreeのupdate関数
     T res;
-    res = max(l,r);
+    res = l+r;
     return res;
 }
 
