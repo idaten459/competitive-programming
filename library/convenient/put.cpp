@@ -29,3 +29,15 @@ template<class T> inline void put(const T& first){std::cout<<first;printf("\n");
 template<class T, class... N> inline void put(const T& first, const N&... rest){std::cout<<first;printf(" ");put(rest...);}
 inline void putn(){}
 template<class T, class... N> inline void putn(const T& first, const N&... rest){std::cout<<first;printf("\n");putn(rest...);}
+//#define put(a) cout<<a<<"\n"
+
+int main(){
+    vector<vector<int>> mat={{1,2,3},{2,4,6}};
+    vector<int> vec={1,2,3,4};
+    int a = 3;
+    int b = 4;
+    string c = "hoge";
+    putn(mat,vec,a,b,c);
+    put(a,b,c,vec);
+    return 0;
+}
