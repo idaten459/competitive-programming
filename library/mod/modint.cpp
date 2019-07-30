@@ -5,7 +5,7 @@ ModIntに対応したpow,fact,combを作ることで、軽量化に成功し、�
 abc042dの「いろはちゃんとます目」で動作確認済み
 @verify https://atcoder.jp/contests/abc132/submissions/6611055
 ！注意！
-comb使うときは、n<mの時、comb(n,m)=0とした。combは、
+comb使うときは、n<mの時、comb(n,m)=0とした。combは、n,mがもともとintであることが前提となっている
 */
 
 template<typename T, typename U>
