@@ -3,6 +3,9 @@ ModIntに対応したpow,fact,combを作ることで、軽量化に成功し、�
 使用例も一緒に載せてあるので、使い方はmain関数ないを参考されたし
 標準入出力に対応
 abc042dの「いろはちゃんとます目」で動作確認済み
+@verify https://atcoder.jp/contests/abc132/submissions/6611055
+！注意！
+comb使うときは、n<mの時、comb(n,m)=0とした。combは、
 */
 
 template<typename T, typename U>
@@ -33,8 +36,9 @@ inline T fact(T n, vector<T>& table) {
 
 template<typename T>
 inline T comb(T n, T m, vector<T>& table) {//nCm
-    if (n - m < m)return comb(n, n - m, table);
-    else return fact(n, table) / fact(m, table) / fact(n - m, table);
+	if (n < m)return 0;
+	if (n - m < m)return comb(n, n - m, table);
+	else return fact(n, table) / fact(m, table) / fact(n - m, table);
 }
 
 class ModInt {
