@@ -1,8 +1,10 @@
 /*
 ミラービン素数判定法
 計算量はO(klog(n)^3)
-vrify @https://yukicoder.me/problems/no/3030
+@vrify
+    https://yukicoder.me/problems/no/3030
     https://yukicoder.me/submissions/349610
+    https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/ALDS1_1_C/judge/3781824/C++14
 caution
 こどふぉではu128が使えないので、Miller–Rabin_test_CF_edition.cppを使うこと！
 */
@@ -47,17 +49,7 @@ bool is_prime(const u128 &n) {
     } else {
         // n < 2^63
         constexpr u128 witness[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022, 0};
-        // if u128 is available
         auto modmul = [&](u128 a, u128 b) { return a * b % n; };
-        // otherwise
-        // auto modmul = [&](u64 a, u64 b) {
-        //     u64 res = 0;
-        //     for (; b; b /= 2) {
-        //         if (b & 1) res = (res + a) % n;
-        //         a = (a + a) % n;
-        //     }
-        //     return res;
-        // };
         return is_prime_impl<u128>(n, witness, modmul);
     }
 }
