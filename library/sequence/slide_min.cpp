@@ -1,3 +1,6 @@
+/*
+数列x(i=0,1,...n-1)の長さkの区間の最小(大)値として得られる数列y(0,1,...,n-k)をO(n)で求めるアルゴリズム
+*/
 //comp;less<T>:min,greater<T>:max
 template<typename T,class Comp>
 vector<T> slide_min(vector<T>& a,int k){
