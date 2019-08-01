@@ -9,6 +9,7 @@
     @verify 
     https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/ALDS1_14_B/judge/3785365/C++14
     https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/ALDS1_14_B/judge/3785357/C++14
+    https://yukicoder.me/submissions/364720
 */
 
 template<typename T>
