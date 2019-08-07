@@ -2,10 +2,12 @@
 splaytreeという平衡二分探索木の一種
 search,insert,erase,find_orderを木のnode数をnとしてamortized O(logn)で行える
 node数の最大値をNとして空間計算量はO(N)でk番目の値を得るデータ構造としてはかなり少ない
+定数倍が重いので10^6のクエリはこなせない(AOJ:https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/ALDS1_4_C/judge/3795855/C++14)チューニングすればギリいけそうな秒数ではあるが
 @verified
 https://atcoder.jp/contests/arc033/submissions/6437113
 
 */
+
 template<typename T>
 class SplayTree{//insert,erase based
 public:
@@ -104,7 +106,7 @@ public:
     }
     node_t *search(int k){//keyがkのnodeを返す、存在しない場合はnullptrを返す。直近でアクセスしたnodeでsplayする
         node_t *x = this->root,*y;
-        assert(!x);
+        if(!x)return nullptr;
         while (x!=nullptr) {
             y=x;
             if(k<x->key){
