@@ -1,9 +1,7 @@
 /*
-ModIntに対応したpow,fact,combを作ることで、軽量化に成功し、気軽に初期化できるようになった
-使用例も一緒に載せてあるので、使い方はmain関数ないを参考されたし
-標準入出力に対応
-abc042dの「いろはちゃんとます目」で動作確認済み
-@verify https://atcoder.jp/contests/abc132/submissions/6611055
+実行前に法が与えられているModInt
+定数による高速化の恩恵を得られる
+@verify https://atcoder.jp/contests/abc042/submissions/6726858
 ！注意！
 comb使うときは、n<mの時、comb(n,m)=0とした。combは、n,mがもともとintであることが前提となっている
 */
@@ -25,7 +23,7 @@ inline T pow(T x, U exp) {
 template<typename T>
 inline T fact(T n, vector<T>& table) {
     if (n >= (int)table.size()) {
-        ll s = table.size();
+        uint_fast32_t s = table.size();
         for (T i = s; i < n + 1; ++i) {
             table.push_back(table.back() * i);
         }
@@ -36,33 +34,31 @@ inline T fact(T n, vector<T>& table) {
 
 template<typename T>
 inline T comb(T n, T m, vector<T>& table) {//nCm
-	if (n < m)return 0;
-	if (n - m < m)return comb(n, n - m, table);
-	else return fact(n, table) / fact(m, table) / fact(n - m, table);
+    if (n < m)return 0;
+    if (n - m < m)return comb(n, n - m, table);
+    else return fact(n, table) / fact(m, table) / fact(n - m, table);
 }
-
+constexpr uint_fast64_t mod = 1e9+7;
+template<uint_fast64_t Mod>
 class ModInt {
+    using lint = int_fast64_t;
 public:
-    ll a;
-    const int mod = 1e9 + 7;
-    ModInt(ll _val = 0) {
-        if (_val >= mod) { _val %= mod; }
-        a = _val;
-    }
-    ModInt operator-() {return ModInt(mod - a);}//単項-演算子(-a)のオーバーロード
+    lint a;
+    ModInt(lint val = 0){if(val >= Mod){val %= Mod;}a=val;}
+    ModInt operator-() {return ModInt(Mod - a);}//単項-演算子(-a)のオーバーロード
     ModInt operator=(const ModInt n) { a = n.a; return a; }
-    ModInt operator+(const ModInt n) { if ((a + n.a) >= mod) { return a + n.a - mod; } else { return a + n.a; } }
-    ModInt operator-(const ModInt n) {return a+(mod-n.a);}
+    ModInt operator+(const ModInt n) { if ((a + n.a) >= Mod) { return a + n.a - Mod; } else { return a + n.a; } }
+    ModInt operator-(const ModInt n) {return a+(Mod-n.a);}
     ModInt operator*(const ModInt n) { return a * n.a; }
-    ModInt operator/(const ModInt n) { return (*this) * pow(n, mod - 2); }
+    ModInt operator/(const ModInt n) { return (*this) * pow(n, Mod - 2); }
     ModInt& operator+=(const ModInt n) { (*this) = (*this) + n; return *this; }
-    ModInt& operator-=(const ModInt n) { (*this) = (*this) + (mod-n.a); return *this; }
+    ModInt& operator-=(const ModInt n) { (*this) = (*this) + (Mod-n.a); return *this; }
     ModInt& operator*=(const ModInt n) { (*this) = (*this) * n; return *this; }
     ModInt& operator/=(const ModInt n) { (*this) = (*this) / n; return *this; }
     ModInt& operator++(int) { (*this) = (*this) + 1; return *this; }//前置インクリメントs(++a)のオーバーロード
     ModInt& operator++() { (*this) = (*this) + 1; return *this; }//後置インクリメント(a++)のオーバーロード
-    ModInt& operator--(int) { (*this) = (*this) + (mod-1); return *this; }//前置デクリメント(--a)のオーバーロード
-    ModInt& operator--() { (*this) = (*this) + (mod-1); return *this; }//後置デクリメント(a--)のオーバーロード
+    ModInt& operator--(int) { (*this) = (*this) + (Mod-1); return *this; }//前置デクリメント(--a)のオーバーロード
+    ModInt& operator--() { (*this) = (*this) + (Mod-1); return *this; }//後置デクリメント(a--)のオーバーロード
     ModInt inv() { ModInt temp(1); return temp / (*this); }//逆数を返す関数 return (*this)/(*this)/(*this);でもいい
     bool operator<(const ModInt n) { return a < n.a; }
     bool operator<=(const ModInt n) { return a <= n.a; }
@@ -78,11 +74,14 @@ public:
     bool operator==(const int n) { return a == n; }
     ModInt operator%(const int n) { return a % n; }
 };
-ostream& operator <<(ostream& o, const ModInt& t) {
+template<uint_fast64_t Mod> inline
+ostream& operator <<(ostream& o, const ModInt<Mod>& t) {
     o << t.a;
     return o;
 }
-istream& operator >>(istream& i, ModInt& t) {
+template<uint_fast64_t Mod> inline
+istream& operator >>(istream& i, ModInt<Mod>& t) {
     i >> t.a;
     return i;
 }
+
