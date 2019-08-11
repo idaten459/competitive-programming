@@ -12,7 +12,7 @@ using namespace std;
 #define oor(x) [&](){try{x;} catch(const out_of_range& oor){return oorret;} return x;}()
 typedef long long ll;
 typedef unsigned long long ull;
-typedef pair<int, int> P;
+typedef pair<ll, ll> P;
 template<typename T1, typename T2> inline bool chmin(T1& a, T2 b) { if (a > b) { a = b; return 1; }return 0; }
 template<typename T1, typename T2> inline bool chmax(T1& a, T2 b) { if (a < b) { a = b; return 1; }return 0; }
 template<class Type>struct is_vector : std::false_type {};
