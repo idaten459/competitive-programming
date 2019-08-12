@@ -52,6 +52,70 @@ date nthday(int year,int n){//year/1/1から数えてn番目の日を返す(n<=3
     return res;
 }
 
+
+class date {
+public:
+	int year, month, day;
+	int	m[12]	= { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	int lm[12]	= { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+	date(int y, int m, int d) :year(y), month(m), day(d) {}
+	bool leap(int y) {
+		if (y % 4 == 0) {
+			if (y % 100 == 0) {
+				if (y % 400 == 0) {
+					return true;
+				}
+			} else {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	void nextday() {
+		if (leap(this->year)) {
+			if (this->day == this->lm[this->month - 1]) {
+				if (this->month == 12) {
+					this->year++;
+					this->month = this->day = 1;
+				} else {
+					this->month++;
+					this->day = 1;
+				}
+			} else {
+				day++;
+			}
+		} else {
+			if (this->day == this->m[this->month - 1]) {
+				if (this->month == 12) {
+					this->year++;
+					this->month = this->day = 1;
+				} else {
+					this->month++;
+					this->day = 1;
+				}
+			} else {
+				day++;
+			}
+		}
+	}
+	void prevday() {
+		if (day == 1) {
+			if (this->month == 3&& leap(this->year)) {
+				this->month = 2;
+				this->day = 29;
+			} else {
+				this->month--;
+				this->day = m[this->month - 1];
+			}
+		} else {
+			day--;
+		}
+	}
+
+};
+
 int main(){
     date today = {2019,2,10};
     cout << nthday(today) << endl;
