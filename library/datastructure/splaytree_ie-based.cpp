@@ -20,8 +20,21 @@ public:
         T sum;
         node_t(T v,int k):cp{nullptr,nullptr},pp(nullptr),val(v),key(k),size(1),sum(val){}
     };
-    node_t* root;
+    node_t* root;//rootを単独ではなくsetとかで処理したくなってきたsplitに対応するため
     SplayTree():root(nullptr){}
+    ~SplayTree(){
+        /*for(auto r:root){
+            freeTree(root);
+        }*/
+        freeTree(root);
+    }
+    void freeTree(node_t *t){
+        if(t==nullptr)return;
+        freeTree(t->cp[0]);
+        freeTree(t->cp[1]);
+        delete t;
+        t = nullptr;
+    }
     int count(node_t *t){
         return !t ? 0 : t->size;
     }
@@ -160,6 +173,8 @@ public:
                     break;
                 }
             }else{
+                delete z;
+                z = nullptr;
                 return x;//同じkeyの場合、更新するか保持するか迷いどころ
             }
         }
