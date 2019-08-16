@@ -85,3 +85,5 @@ istream& operator >>(istream& i, ModInt<Mod>& t) {
     return i;
 }
 
+const int Mod = 1e9 + 7;
+using mi = ModInt<Mod>;
