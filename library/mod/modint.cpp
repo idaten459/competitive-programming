@@ -38,7 +38,7 @@ inline T comb(T n, T m, vector<T>& table) {//nCm
     if (n - m < m)return comb(n, n - m, table);
     else return fact(n, table) / fact(m, table) / fact(n - m, table);
 }
-constexpr uint_fast64_t mod = 1e9+7;
+
 template<uint_fast64_t Mod>
 class ModInt {
     using lint = int_fast64_t;
@@ -85,5 +85,5 @@ istream& operator >>(istream& i, ModInt<Mod>& t) {
     return i;
 }
 
-const int Mod = 1e9 + 7;
-using mi = ModInt<Mod>;
+constexpr uint_fast64_t mod = 1e9+7;
+using mi = ModInt<mod>;
