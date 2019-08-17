@@ -2,6 +2,7 @@
 実行前に法が与えられているModInt
 定数による高速化の恩恵を得られる
 @verify https://atcoder.jp/contests/abc042/submissions/6726858
+        https://atcoder.jp/contests/abc042/submissions/6942247 (add invfact, comb(...,invtable),)
 ！注意！
 comb使うときは、n<mの時、comb(n,m)=0とした。combは、n,mがもともとintであることが前提となっている
 */
@@ -38,7 +39,7 @@ inline T comb(T n, T m, vector<T>& table) {//nCm
     if (n - m < m)return comb(n, n - m, table);
     else return fact(n, table) / fact(m, table) / fact(n - m, table);
 }
-
+//constexpr uint_fast64_t mod = 1e9+7;
 template<uint_fast64_t Mod>
 class ModInt {
     using lint = int_fast64_t;
@@ -86,4 +87,4 @@ istream& operator >>(istream& i, ModInt<Mod>& t) {
 }
 
 constexpr uint_fast64_t mod = 1e9+7;
-using mi = ModInt<mod>;
+using mi = ModInt<Mod>;
