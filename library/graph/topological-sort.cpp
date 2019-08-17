@@ -5,6 +5,7 @@ pathは、隣接リストで、そのグラフが自己ループなしのDAGで�
 グラフ全体で弱連結でなくても動作する(極論一つの辺がなくても動作するのが実装を見るとわかる)
 計算量はO(V+E)
 res!=path.size()だとpathが閉路をもつ
+queue<int> q を priority_queue<int, vector<int>, greater<int>> q;にすると、辞書順最小ｓを出力する
 @verify https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/GRL_4_B/judge/3815022/C++14 (AOJ)
 */
 
