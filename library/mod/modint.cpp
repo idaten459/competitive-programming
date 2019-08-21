@@ -3,6 +3,7 @@
 定数による高速化の恩恵を得られる
 @verify https://atcoder.jp/contests/abc042/submissions/6726858
         https://atcoder.jp/contests/abc042/submissions/6942247 (add invfact, comb(...,invtable),)
+		https://atcoder.jp/contests/abc042/submissions/7044773
 ！注意！
 comb使うときは、n<mの時、comb(n,m)=0とした。combは、n,mがもともとintであることが前提となっている
 */
@@ -19,9 +20,10 @@ inline T pow(T x, U exp) {
 		return (x * pow(x, exp - 1));
 	}
 }
- 
+
 template<typename T>
-inline T fact(int_fast32_t n, vector<T>& table) {
+inline T fact(int_fast32_t n) {
+    static vector<T> table(1,1);
 	if (n >= (int)table.size()) {
 		uint_fast32_t s = table.size();
 		for (T i = s; i < n + 1; ++i) {
@@ -31,9 +33,10 @@ inline T fact(int_fast32_t n, vector<T>& table) {
 	if (n < 0) return 1;
 	else return table[n];
 }
- 
+
 template<typename T>
-inline T invfact(int_fast32_t n, vector<T>& invtable) {
+inline T invfact(int_fast32_t n) {
+    static vector<T> invtable(1,1);
 	if (n >= (int)invtable.size()) {
 		uint_fast32_t s = invtable.size();
 		for (T i = s; i < n + 1; ++i) {
@@ -43,19 +46,14 @@ inline T invfact(int_fast32_t n, vector<T>& invtable) {
 	if (n < 0) return 1;
 	else return invtable[n];
 }
- 
+
 template<typename T>
-inline T comb(T n, T m, vector<T>& table) {//nCm
+inline T comb(uint_fast32_t n, uint_fast32_t m, bool closed=true) {//nCm
 	if (n < m)return 0;
-	else return fact(n, table) / fact(m, table) / fact(n - m, table);
+	else if(closed)return fact<T>(n) * invfact<T>(m) * invfact<T>(n - m);
+    else fact<T>(n) / fact<T>(m) / fact<T>(n - m);
 }
- 
-template<typename T>
-inline T comb(uint_fast32_t n, uint_fast32_t m, vector<T>& table, vector<T>& invtable) {//nCm
-	if (n < m)return 0;
-	else return fact(n, table) * invfact(m, invtable) * invfact(n - m, invtable);
-}
- 
+
 template<uint_fast64_t Mod>
 class ModInt {
 	using lint = int_fast64_t;
@@ -103,6 +101,5 @@ istream& operator >>(istream& i, ModInt<Mod>& t) {
 }
  
 constexpr uint_fast64_t mod = 1e9 + 7;
+//constexpr uint_fast64_t mod = 998244353;
 using mi = ModInt<mod>;
-
-//static使うことでtableを省略できるかも！

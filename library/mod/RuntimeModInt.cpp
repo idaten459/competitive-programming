@@ -79,6 +79,6 @@ inline istream& operator >>(istream& i, RuntimeModInt& t) {i >> t.a;return i;}
 
 int main(){
     uint_fast64_t mod = 1e9+7;
-    uint_fast64_t mod = 1e9+7;
     RuntimeModInt::set_mod(mod);
+    using mi = RuntimeModInt;
 }
