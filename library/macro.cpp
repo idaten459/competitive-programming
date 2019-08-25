@@ -26,7 +26,7 @@ template <typename T> inline ostream& operator << (ostream& out, const vector<T>
 	return out;
 }
 inline void put() {}
-template<class T> inline void put(const T& first) { std::cout << first; printf("\n"); }
-template<class T, class... N> inline void put(const T& first, const N& ... rest) { std::cout << first; printf(" "); put(rest...); }
+template<class T> inline void put(const T& first) { std::cout << first<<"\n"; }
+template<class T, class... N> inline void put(const T& first, const N& ... rest) { std::cout << first << " "; put(rest...); }
 inline void putn() {}
-template<class T, class... N> inline void putn(const T& first, const N& ... rest) { std::cout << first; printf("\n"); putn(rest...); }
+template<class T, class... N> inline void putn(const T& first, const N& ... rest) { std::cout << first << "\n"; putn(rest...); }
