@@ -3,7 +3,7 @@
 定数による高速化の恩恵を得られる
 @verify https://atcoder.jp/contests/abc042/submissions/6726858
         https://atcoder.jp/contests/abc042/submissions/6942247 (add invfact, comb(...,invtable),)
-		https://atcoder.jp/contests/abc042/submissions/7044773
+		https://atcoder.jp/contests/abc042/submissions/7044773 (add static)
 ！注意！
 comb使うときは、n<mの時、comb(n,m)=0とした。combは、n,mがもともとintであることが前提となっている
 */
