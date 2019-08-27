@@ -15,7 +15,7 @@ typedef long long ll;
 typedef unsigned long long ull;
 typedef pair<ll, ll> P;
 template<typename T1, typename T2> inline bool chmin(T1& a, T2 b) { if (a > b) { a = b; return 1; }return 0; }
-template<typename T1, typename T2> inline bool chmax(T1& a, T2 b) { if (a <= b) { a = b; return 1; }return 0; }
+template<typename T1, typename T2> inline bool chmax(T1& a, T2 b) { if (a < b) { a = b; return 1; }return 0; }
 template<class Type>struct is_vector : std::false_type {};
 template<class ValueType, class Alloc>struct is_vector<std::vector<ValueType, Alloc>> : std::true_type {};
 template <typename T> inline ostream& operator << (ostream& out, const vector<T>& v) {
