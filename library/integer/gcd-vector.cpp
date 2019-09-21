@@ -1,5 +1,6 @@
 /*
 vectorの全要素のgcdを求める
+gcdもコピペしないと動作しない
 */
 template<typename T>
 T gcd(vector<T> a){
