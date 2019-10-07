@@ -1,3 +1,11 @@
+/*
+普通のdijkstra
+辺の重みが非負であることが条件
+計算量はO(|E|log|V|)
+pathを与えると、dに頂点sからの最短経路長を格納する。
+@verify https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/GRL_1_A/judge/3899647/C++14
+*/
+
 struct edge{
     int to,cost;
     edge(int t,int c){
@@ -28,18 +36,23 @@ void dijkstra(int s,vector<vector<edge>>& path,vector<T>& d){
 }
 /*
 int main(){
-    int k;
-    cin >> k;
-    vector<vector<edge>> p(k);
-    REP(i,k){
-        int temp = i*10%k;
-        p[i].push_back(edge(temp,0));
-        p[i].push_back(edge((i+1)%k,1));
-    }
-    vector<int> d(k,INT_MAX/2);
-    int s = 1;
-    dijkstra(s, p, d);
-    put(d[0]+1);
+    int n, m, start;
+	cin >> n >> m >> start;
+	vector<vector<edge>> path(n);
+	REP(i, m) {
+		int s, t, d;
+		cin >> s >> t >> d;
+		path[s].push_back(edge(t, d));
+	}
+	vector<ll> d(n, LLONG_MAX / 2);
+	dijkstra(start, path, d);
+	REP(i, n) {
+		if (d[i] == LLONG_MAX / 2) {
+			put("INF");
+		} else {
+			put(d[i]);
+		}
+	}
     return 0;
 }
 */
