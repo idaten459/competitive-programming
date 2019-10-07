@@ -1,41 +1,120 @@
 /*
  ベルマンフォード法
  負のコストがある単一始点の最短距離を導出する
- 下は実装が始点:src=0,終点:n-1になっている
- 「終点」を含む負閉路が存在する場合は"inf"を出力している(2n周している)<-2周する必要なくない?←有向グラフだと2週要る
- どこかに負閉路が存在することを確かめるにはn周でいい？ただしflag=trueのところのifは外すこと
- 計算量はO(V*E)
- 使用例はabc061d
+ solve 閉路を考慮しない暫定的な最短距離O(|V||E|)
+ negative_cycle solveで計算した経路にendに影響する負閉路があるかどうかO(|E|)
+ restore solveで計算した経路からendに向かう最短経路の復元(ある一つのみ)
+ 最長経路(正閉路)を導出したい際は、costを-1倍するとよい
+ @verify https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/GRL_1_B/judge/3916028/C++14
 */
 
-int n,m;
+class BellmanFord {
+public:
+	struct edge {
+		int to;
+		ll cost;
+		edge(int to, ll cost) : to(to), cost(cost) {}
+	};
+	struct node {
+		int from;
+		ll cost;
+		node(int from, ll cost) : from(from), cost(cost) {}
+	};
+	vector<vector<edge>> path;
+	int n;
+	ll inf = LLONG_MAX / 2;
 
-int main(){
-    cin >> n >> m;
-    vector<int> a(m);
-    vector<int> b(m);
-    vector<ll> c(m);
-    REP(i,m){
-        cin >> a[i] >> b[i] >> c[i];
-        --a[i];
-        --b[i];
-    }
-    //Bellman-Ford法
-    vector<ll> dist(n,1e15);
-    int src = 0;
-    dist[src]=0;
-    REP(i,n*2){
-        bool flag = false;
-        REP(j,m){
-            if(chmin(dist[b[j]],dist[a[j]]+c[j])){
-                if(b[j]==n-1)flag = true;
-            }
-        }
-        if(i==2*n-1&&flag){
-            put("inf");
-            return 0;
-        }
-    }
-    put(dist.back());
-    return 0;
+	BellmanFord(int n) :n(n) {
+		path.resize(n);
+	}
+	void push_edge(int a, int b, ll c) {
+		path[a].push_back(edge(b, c));
+	}
+	vector<node> solve(int start) {
+		vector<node> dist(n, node(-1,inf));
+		dist[start].cost = 0;
+		REP(i, this->n - 1) {
+			REP(j, this->n) {
+				REP(k, path[j].size()) {
+					if (dist[j].cost != this->inf) {
+						if (chmin(dist[path[j][k].to].cost, dist[j].cost + path[j][k].cost)) {
+							dist[path[j][k].to].from = j;
+						}
+					}
+				}
+			}
+		}
+		return dist;
+	}
+	bool negative_cycle(vector<node>& dist, int end) {
+		vector<bool> negative(n, false);
+		REP(i, n) {
+			REP(j, path[i].size()) {
+				int from = i;
+				int to = path[i][j].to;
+				ll cost = path[i][j].cost;
+				if (dist[to].cost != this->inf && dist[from].cost + cost < dist[to].cost) {
+					negative[to] = true;
+				}
+				if (negative[from]) {
+					negative[to] = true;
+				}
+			}
+		}
+		if (negative[end]) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	vector<int> restore(vector<node>& dist, int end) {
+		vector<int> res;
+		if (negative_cycle(dist,end)||dist[end].cost==this->inf) {
+			return res;
+		} else {
+			int now = end;
+			while (now>=0) {
+				res.push_back(now);
+				now = dist[now].from;
+			}
+			reverse(res.begin(), res.end());
+			return res;
+			
+		}
+	}
+};
+
+
+int main() {
+	IOS;
+	int n, m, r;
+	cin >> n >> m >> r;
+	vector<ll> a(m), b(m), c(m);
+	BellmanFord bf(n);
+	REP(i, m) {
+		cin >> a[i] >> b[i] >> c[i];
+		//a[i]--;
+		//b[i]--;
+		bf.push_edge(a[i], b[i], c[i]);
+	}
+	int start = r;
+	auto dist = bf.solve(start);
+	REP(i, n) {
+		int end = i;
+		if (bf.negative_cycle(dist, end)) {
+			put("NEGATIVE CYCLE");
+			return 0;
+		}
+	}
+	REP(i, n) {
+		int end = i;
+		if (dist[end].cost == bf.inf) {
+			put("INF");
+		} else {
+			put(dist[end].cost);
+			//put(bf.restore(dist, end));
+		}
+		
+	}
+	return 0;
 }
