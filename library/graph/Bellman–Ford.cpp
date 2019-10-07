@@ -1,11 +1,10 @@
 /*
  ベルマンフォード法
  負のコストがある単一始点の最短距離を導出する
- solve 閉路を考慮しない暫定的な最短距離O(|V||E|)
- negative_cycle solveで計算した経路にendに影響する負閉路があるかどうかO(|E|)
+ solve 閉路を考慮しない最短距離と負閉路があるかO(|V||E|)
  restore solveで計算した経路からendに向かう最短経路の復元(ある一つのみ)
  最長経路(正閉路)を導出したい際は、costを-1倍するとよい
- @verify https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/GRL_1_B/judge/3916028/C++14
+ @verify https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/GRL_1_B/judge/3916106/C++14
 */
 
 class BellmanFord {
@@ -18,7 +17,10 @@ public:
 	struct node {
 		int from;
 		ll cost;
-		node(int from, ll cost) : from(from), cost(cost) {}
+		bool neg;
+		node(int from, ll cost) : from(from), cost(cost) {
+			neg = false;
+		}
 	};
 	vector<vector<edge>> path;
 	int n;
@@ -31,7 +33,7 @@ public:
 		path[a].push_back(edge(b, c));
 	}
 	vector<node> solve(int start) {
-		vector<node> dist(n, node(-1,inf));
+		vector<node> dist(n, node(-1, inf));
 		dist[start].cost = 0;
 		REP(i, this->n - 1) {
 			REP(j, this->n) {
@@ -44,46 +46,38 @@ public:
 				}
 			}
 		}
-		return dist;
-	}
-	bool negative_cycle(vector<node>& dist, int end) {
-		vector<bool> negative(n, false);
 		REP(i, n) {
 			REP(j, path[i].size()) {
 				int from = i;
 				int to = path[i][j].to;
 				ll cost = path[i][j].cost;
 				if (dist[to].cost != this->inf && dist[from].cost + cost < dist[to].cost) {
-					negative[to] = true;
+					dist[to].cost = dist[from].cost + cost;
+					dist[to].neg = true;
 				}
-				if (negative[from]) {
-					negative[to] = true;
+				if (dist[from].neg) {
+					dist[to].neg = true;
 				}
 			}
 		}
-		if (negative[end]) {
-			return true;
-		} else {
-			return false;
-		}
+		return dist;
 	}
 	vector<int> restore(vector<node>& dist, int end) {
 		vector<int> res;
-		if (negative_cycle(dist,end)||dist[end].cost==this->inf) {
+		if (dist[end].neg || dist[end].cost == this->inf) {
 			return res;
 		} else {
 			int now = end;
-			while (now>=0) {
+			while (now >= 0) {
 				res.push_back(now);
 				now = dist[now].from;
 			}
 			reverse(res.begin(), res.end());
 			return res;
-			
+
 		}
 	}
 };
-
 
 int main() {
 	IOS;
@@ -101,7 +95,7 @@ int main() {
 	auto dist = bf.solve(start);
 	REP(i, n) {
 		int end = i;
-		if (bf.negative_cycle(dist, end)) {
+		if (dist[end].neg) {
 			put("NEGATIVE CYCLE");
 			return 0;
 		}
