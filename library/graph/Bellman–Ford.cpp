@@ -1,3 +1,12 @@
+/*
+ ベルマンフォード法
+ 負のコストがある単一始点の最短距離を導出する
+ solve 閉路を考慮しない最短距離と負閉路があるかO(|V||E|)(到達しない場合はinf、負閉路が経路にある場合は-infとなる)
+ restore solveで計算した経路からendに向かう最短経路の復元(ある一つのみ)
+ 最長経路(正閉路)を導出したい際は、costを-1倍するとよい
+ @verify 	https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/GRL_1_B/judge/3916745/C++14
+ 			https://atcoder.jp/contests/abc137/submissions/7904984
+*/
 class BellmanFord {
 public:
     struct edge {
