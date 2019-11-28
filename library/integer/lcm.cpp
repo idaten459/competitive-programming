@@ -4,25 +4,19 @@ lcmを求めるライブラリ
 計算量はlog(u+v)
 */
 
-template<typename T>
-ll lcm(T u,T v){
-    ll res = (ll)u/gcd(u,v);
-    res*= v;
-    return res;
+template<typename T, typename U>
+long long lcm(T u, U v) {
+	long long res = (long long)u / gcd(u, v);
+	res *= v;
+	return res;
 }
 
 template<typename T>
-T lcm(vector<T> a){
-    int l = a.size();
-    if(l<=0){
-        return 1;
-    }else if(l==1){
-        return a[0];
-    }else{
-        T res = lcm(a[0],a[1]);
-        FOR(i,2,l){
-            res = lcm(res,a[i]);
-        }
-        return res;
-    }
+long long lcm(vector<T> a) {
+	int l = a.size();
+	long long res = 1;
+	for (int i = 0; i < l; ++i) {
+		res = lcm(res, a[i]);
+	}
+	return res;
 }
