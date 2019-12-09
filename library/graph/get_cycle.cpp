@@ -30,7 +30,7 @@ void find_cycle(vector<vector<int>>& path, int v, int p, stack<int>& st, vector<
 	return;
 }
 
-vector<int> get_cycle(vector<vector<int>>& path) { // n=100,m=n*10,loop=1000で反例が見つからなかった下手なジャッジより回したのでコーナーさえなければOK
+vector<int> get_cycle(vector<vector<int>>& path) {
 	int n = path.size();
 	vector<int> vis(n, 0);
 	vector<int> cycle;
