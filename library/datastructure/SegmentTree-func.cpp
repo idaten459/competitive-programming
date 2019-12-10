@@ -55,14 +55,14 @@ public:
     T get(const int& k) {//左からk番目の葉を得る
         return seg[sz - 1 + k];
     }
-    void update(int k, T& v) {// k 番目の値をup(seg[k],v)にする
-        k += sz - 1;
-        seg[k] = up(seg[k],v);
-        while (k > 0) {
-            k = (k - 1) / 2;
-            seg[k] = up(seg[2 * k + 1], seg[2 * k + 2]);
-        }
-    }
+    void update(int k, T v) {// k 番目の値をup(seg[k],v)にする
+		k += sz - 1;
+		seg[k] = up(seg[k], v);
+		while (k > 0) {
+			k = (k - 1) / 2;
+			seg[k] = up(seg[2 * k + 1], seg[2 * k + 2]);
+		}
+	}
     T query(int a, int b) {//[a,b)のupの合成を求める
         int k = 0, l = 0, r = sz;
         if (r <= a || b <= l) {
