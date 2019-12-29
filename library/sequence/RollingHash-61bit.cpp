@@ -6,6 +6,7 @@ mod = 2^61-1を使ったこのmodはかなり強いため、衝突の危険性�
 さらにbaseを複数使えるようにした
 計算量O(|S|)
 @verify https://atcoder.jp/contests/abc141/submissions/9227996
+        https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/ALDS1_14_B/judge/4081549/C++14
 */
 
 template <uint_fast64_t basesize>
