@@ -17,56 +17,64 @@ private:
 public:
     RollingHash(const vector<ull>& mod,const ull& base) :mod(mod), base(base), n((int)mod.size()) {}
     bool contain(const string& s, const string& t) {//sのsubstringにtが存在するか
-        int sl = (int)s.size(), tl = (int)t.size();
-        if (sl < tl)return false;
-        vector<ull> sh(n,0),th(n,0),p(n,1);
-        bool flag = true;
-        for(int i=0;i<n;++i){
-            for (int j = 0; j < tl; ++j) {
-                sh[i] = sh[i] * base + s[j];
-                if (sh[i] > mod[i])sh[i] %= mod[i];
-                th[i] = th[i] * base + t[j];
-                if (th[i] > mod[i])th[i] %= mod[i];
-                p[i] *= base;
-                if (p[i] > mod[i])p[i] %= mod[i];
-            }
-        }
-        for(int i=0;i<n;++i){
-            if(th[i]!=sh[i])flag=false;
-        }
-        if(flag){
-            return true;
-        }
-        for (int j = tl; j < sl; ++j) {
-            flag = true;
-            for(int i=0;i<n;++i){
-                sh[i] = sh[i] * base + s[j];
-                if (sh[i] < p[i] * s[j - tl]) {
-                    sh[i] += mod[i] * s[j - tl];
-                }
-                sh[i] -= p[i] * s[j - tl];
-                if (sh[i] > mod[i])sh[i] %= mod[i];
-            }
-            for(int i=0;i<n;++i){
-                if (th[i] != sh[i])flag = false;
-            }
-            if(flag){
-                return true;
-            }
-        }
-        return false;
+		return contain(s, t, 0, s.size());
+	}
+	bool contain(const string& s, const string& t, int l, int r) {//sの[l,r)にsubstringにtが存在するか
+		int sl = (int)s.size(), tl = (int)t.size();
+		int ran = r - l;
+		if (ran < tl)return false;
+		vector<ull> sh(n, 0), th(n, 0), p(n, 1);
+		bool flag = true;
+		for (int i = 0; i < n; ++i) {
+			for (int j = l; j < l + tl; ++j) {
+				sh[i] = sh[i] * base + s[j];
+				if (sh[i] > mod[i])sh[i] %= mod[i];
+				th[i] = th[i] * base + t[j-l];
+				if (th[i] > mod[i])th[i] %= mod[i];
+				p[i] *= base;
+				if (p[i] > mod[i])p[i] %= mod[i];
+			}
+		}
+		for (int i = 0; i < n; ++i) {
+			if (th[i] != sh[i])flag = false;
+		}
+		if (flag) {
+			return true;
+		}
+		for (int j = l + tl; j < r; ++j) {
+			flag = true;
+			for (int i = 0; i < n; ++i) {
+				sh[i] = sh[i] * base + s[j];
+				if (sh[i] < p[i] * s[j - tl]) {
+					sh[i] += mod[i] * s[j - tl];
+				}
+				sh[i] -= p[i] * s[j - tl];
+				if (sh[i] > mod[i])sh[i] %= mod[i];
+			}
+			for (int i = 0; i < n; ++i) {
+				if (th[i] != sh[i])flag = false;
+			}
+			if (flag) {
+				return true;
+			}
+		}
+		return false;
+	}
+    vector<int> find(const string& s, const string& t){
+        return find(s,t,0,s.size());
     }
-    vector<int> find(const string& s, const string& t) {//sのsubstringがtである先頭のindexを返す
+    vector<int> find(const string& s, const string& t, int l, int r) {//sのsubstringがtである先頭のindexを返す
         int sl = (int)s.size(), tl = (int)t.size();
         vector<int> res;
-        if (sl < tl)return res;
+        int ran = r - l;
+		if (ran < tl)return res;
         vector<ull> sh(n,0),th(n,0),p(n,1);
         bool flag = true;
         for(int i=0;i<n;++i){
-            for (int j = 0; j < tl; ++j) {
+            for (int j = l; j < l + tl; ++j) {
                 sh[i] = sh[i] * base + s[j];
                 if (sh[i] > mod[i])sh[i] %= mod[i];
-                th[i] = th[i] * base + t[j];
+                th[i] = th[i] * base + t[j-l];
                 if (th[i] > mod[i])th[i] %= mod[i];
                 p[i] *= base;
                 if (p[i] > mod[i])p[i] %= mod[i];
@@ -74,7 +82,7 @@ public:
         }
         for(int i=0;i<n;++i)if(th[i]!=sh[i])flag=false;
         if(flag)res.push_back(0);
-        for (int j = tl; j < sl; ++j) {
+        for (int j = l + tl; j < r; ++j) {
             flag = true;
             for(int i=0;i<n;++i){
                 sh[i] = sh[i] * base + s[j];
@@ -90,6 +98,7 @@ public:
         return res;
     }
 };
+
 
 int main() {
     string s , t;
