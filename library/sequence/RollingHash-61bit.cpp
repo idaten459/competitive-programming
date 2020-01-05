@@ -45,10 +45,7 @@ public:
 		return v;
 	}
 	vector<arr> calcHash(string &s,i32 l,i32 r) { // s[l,r)のhashを計算
-		if (l >= r) {
-			vector<arr> res(0);
-			return res;
-		}
+		if (l >= r || r > s.size() || l < 0) return vector<arr>(0);
 		vector<arr> res(r - l);
 		for (i32 j = 0; j < basesize ; ++j) {
 			res[0][j] = s[l];
@@ -61,6 +58,7 @@ public:
 		return res;
 	}
 	vector<arr> calcHashLen(string& s, i32 len) {
+		if (len > s.size()) return vector<arr>(0);
 		i32 l = (i32)s.size() - len + 1;
 		vector<arr> pre = calcHash(s, 0, len);
 		vector<arr> res(l);
