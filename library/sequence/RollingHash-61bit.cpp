@@ -4,6 +4,7 @@ RollingHash ある文字列sの長さlenの部分文字列のhashをO(|S|)で計
 詳しくは、 https://snuke.hatenablog.com/entry/2017/02/03/035524
 mod = 2^61-1を使ったこのmodはかなり強いため、衝突の危険性はほとんどない上、速い
 さらにbaseを複数使えるようにした
+len,rが文字列の長さを超えていると実行時エラーになるので注意
 計算量O(|S|)
 @verify https://atcoder.jp/contests/abc141/submissions/9227996
         https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/ALDS1_14_B/judge/4081549/C++14
