@@ -51,7 +51,7 @@ template<typename T>
 inline T comb(uint_fast32_t n, uint_fast32_t m, bool closed=true) {//nCm
 	if (n < m)return 0;
 	else if(closed)return fact<T>(n) * invfact<T>(m) * invfact<T>(n - m);
-    else fact<T>(n) / fact<T>(m) / fact<T>(n - m);
+    else return fact<T>(n) / fact<T>(m) / fact<T>(n - m);
 }
 
 template<uint_fast64_t Mod>
