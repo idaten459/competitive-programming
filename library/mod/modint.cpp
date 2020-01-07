@@ -23,7 +23,7 @@ inline T pow(T x, U exp) {
 
 template<typename T>
 inline T fact(int_fast32_t n) {
-    static vector<T> table(1,1);
+	static vector<T> table(1, 1);
 	if (n >= (int)table.size()) {
 		uint_fast32_t s = table.size();
 		for (T i = s; i < n + 1; ++i) {
@@ -36,7 +36,7 @@ inline T fact(int_fast32_t n) {
 
 template<typename T>
 inline T invfact(int_fast32_t n) {
-    static vector<T> invtable(1,1);
+	static vector<T> invtable(1, 1);
 	if (n >= (int)invtable.size()) {
 		uint_fast32_t s = invtable.size();
 		for (T i = s; i < n + 1; ++i) {
@@ -48,10 +48,10 @@ inline T invfact(int_fast32_t n) {
 }
 
 template<typename T>
-inline T comb(uint_fast32_t n, uint_fast32_t m, bool closed=true) {//nCm
+inline T comb(uint_fast32_t n, uint_fast32_t m, bool closed = true) {//nCm
 	if (n < m)return 0;
-	else if(closed)return fact<T>(n) * invfact<T>(m) * invfact<T>(n - m);
-    else return fact<T>(n) / fact<T>(m) / fact<T>(n - m);
+	else if (closed)return fact<T>(n) * invfact<T>(m) * invfact<T>(n - m);
+	else return fact<T>(n) / fact<T>(m) / fact<T>(n - m);
 }
 
 template<uint_fast64_t Mod>
@@ -70,11 +70,11 @@ public:
 	ModInt& operator-=(const ModInt n) { (*this) = (*this) + (Mod - n.a); return *this; }
 	ModInt& operator*=(const ModInt n) { (*this) = (*this) * n; return *this; }
 	ModInt& operator/=(const ModInt n) { (*this) = (*this) / n; return *this; }
-	ModInt& operator++(int) { (*this) = (*this) + 1; return *this; }//前置インクリメントs(++a)のオーバーロード
-	ModInt& operator++() { (*this) = (*this) + 1; return *this; }//後置インクリメント(a++)のオーバーロード
-	ModInt& operator--(int) { (*this) = (*this) + (Mod - 1); return *this; }//前置デクリメント(--a)のオーバーロード
-	ModInt& operator--() { (*this) = (*this) + (Mod - 1); return *this; }//後置デクリメント(a--)のオーバーロード
-	ModInt inv() { ModInt temp(1); return temp / (*this); }//逆数を返す関数 return (*this)/(*this)/(*this);でもいい
+	ModInt& operator++(int) { (*this)+=1; return *this; }//前置インクリメントs(++a)のオーバーロード
+	ModInt& operator++() { (*this)+=1; return *this; }//後置インクリメント(a++)のオーバーロード
+	ModInt& operator--(int) { (*this)-=1; return *this; }//前置デクリメント(--a)のオーバーロード
+	ModInt& operator--() { (*this)-=1; return *this; }//後置デクリメント(a--)のオーバーロード
+	ModInt inv() { return (ModInt)1 / (*this); }//逆数を返す関数
 	bool operator<(const ModInt n) { return a < n.a; }
 	bool operator<=(const ModInt n) { return a <= n.a; }
 	bool operator>(const ModInt n) { return a > n.a; }
@@ -89,17 +89,9 @@ public:
 	bool operator==(const int n) { return a == n; }
 	ModInt operator%(const int n) { return a % n; }
 };
-template<uint_fast64_t Mod> inline
-ostream& operator <<(ostream& o, const ModInt<Mod>& t) {
-	o << t.a;
-	return o;
-}
-template<uint_fast64_t Mod> inline
-istream& operator >>(istream& i, ModInt<Mod>& t) {
-	i >> t.a;
-	return i;
-}
- 
+template<uint_fast64_t Mod> inline ostream& operator <<(ostream& o, const ModInt<Mod>& t) { o << t.a; return o; }
+template<uint_fast64_t Mod> inline istream& operator >>(istream& i, ModInt<Mod>& t) { i >> t.a; return i; }
+
 constexpr uint_fast64_t mod = 1e9 + 7;
 //constexpr uint_fast64_t mod = 998244353;
 using mi = ModInt<mod>;
