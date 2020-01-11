@@ -85,6 +85,6 @@ public:
 	}
 };
 
-constexpr uint_fast64_t  bs = 50;
+constexpr uint_fast64_t  bs = 2;
 using arr = array<uint_fast64_t, bs>;
 using rh = RollingHash<bs>;
