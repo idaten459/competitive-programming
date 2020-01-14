@@ -9,15 +9,18 @@
  計算量はO(NlogN)
  
 */
-vector<int> demical(ll n,int k,int l){
-    vector<int> rtn(l);
-    REP(i,l){
-        rtn[i]=n%k;
-        n/=k;
+vector<int> demical(ll n,int k,int l=-1){
+    if(l<0){
+        vector<int> rtn;
+        while(n>0){
+            rtn.push_back(n%k);
+        }
+    }else{
+        vector<int> rtn(l);
+        REP(i,l){
+            rtn[i]=n%k;
+            n/=k;
+        }
     }
-    //while(n>0){
-     //rtn.push_back(n%k);
-     //n/=k;
-    //}
     return rtn;
 }
