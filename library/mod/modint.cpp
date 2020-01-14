@@ -6,6 +6,7 @@
 		https://atcoder.jp/contests/abc042/submissions/7044773 (add static)
 ！注意！
 comb使うときは、n<mの時、comb(n,m)=0とした。combは、n,mがもともとintであることが前提となっている
+Modは正が想定されるので、unsigned にしていたが、signed との比較でかなりやばが発生していたので、signedに変更
 */
 
 template<typename T, typename U>
@@ -54,12 +55,12 @@ inline T comb(uint_fast32_t n, uint_fast32_t m, bool closed = true) {//nCm
 	else return fact<T>(n) / fact<T>(m) / fact<T>(n - m);
 }
 
-template<uint_fast64_t Mod>
+template<int_fast64_t Mod>
 class ModInt {
 	using lint = int_fast64_t;
 public:
 	lint a;
-	ModInt(lint val = 0) { if (val >= Mod) { val %= Mod; }a = val; }
+	ModInt(lint val = 0) { if (val >= Mod) { val %= Mod; } else if (val < 0) { val %= Mod; val += Mod; }a = val; }
 	ModInt operator-() { return ModInt(Mod - a); }//単項-演算子(-a)のオーバーロード
 	ModInt operator=(const ModInt n) { a = n.a; return a; }
 	ModInt operator+(const ModInt n) { if ((a + n.a) >= Mod) { return a + n.a - Mod; } else { return a + n.a; } }
@@ -70,10 +71,10 @@ public:
 	ModInt& operator-=(const ModInt n) { (*this) = (*this) + (Mod - n.a); return *this; }
 	ModInt& operator*=(const ModInt n) { (*this) = (*this) * n; return *this; }
 	ModInt& operator/=(const ModInt n) { (*this) = (*this) / n; return *this; }
-	ModInt& operator++(int) { (*this)+=1; return *this; }//前置インクリメントs(++a)のオーバーロード
-	ModInt& operator++() { (*this)+=1; return *this; }//後置インクリメント(a++)のオーバーロード
-	ModInt& operator--(int) { (*this)-=1; return *this; }//前置デクリメント(--a)のオーバーロード
-	ModInt& operator--() { (*this)-=1; return *this; }//後置デクリメント(a--)のオーバーロード
+	ModInt& operator++(int) { (*this) += 1; return *this; }//前置インクリメントs(++a)のオーバーロード
+	ModInt& operator++() { (*this) += 1; return *this; }//後置インクリメント(a++)のオーバーロード
+	ModInt& operator--(int) { (*this) -= 1; return *this; }//前置デクリメント(--a)のオーバーロード
+	ModInt& operator--() { (*this) -= 1; return *this; }//後置デクリメント(a--)のオーバーロード
 	ModInt inv() { return (ModInt)1 / (*this); }//逆数を返す関数
 	bool operator<(const ModInt n) { return a < n.a; }
 	bool operator<=(const ModInt n) { return a <= n.a; }
@@ -89,9 +90,9 @@ public:
 	bool operator==(const int n) { return a == n; }
 	ModInt operator%(const int n) { return a % n; }
 };
-template<uint_fast64_t Mod> inline ostream& operator <<(ostream& o, const ModInt<Mod>& t) { o << t.a; return o; }
-template<uint_fast64_t Mod> inline istream& operator >>(istream& i, ModInt<Mod>& t) { i >> t.a; return i; }
+template<int_fast64_t Mod> inline ostream& operator <<(ostream& o, const ModInt<Mod>& t) { o << t.a; return o; }
+template<int_fast64_t Mod> inline istream& operator >>(istream& i, ModInt<Mod>& t) { i >> t.a; return i; }
 
-constexpr uint_fast64_t mod = 1e9 + 7;
-//constexpr uint_fast64_t mod = 998244353;
+constexpr int_fast64_t mod = 1e9 + 7;
+//constexpr int_fast64_t mod = 998244353;
 using mi = ModInt<mod>;
