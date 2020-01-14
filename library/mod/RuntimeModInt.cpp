@@ -42,7 +42,7 @@ class RuntimeModInt {
     static lint &mod() {static lint Mod = 0;return Mod;}
 public:
     lint a;
-    RuntimeModInt(lint val = 0){if(val >= get_mod()){val %= get_mod();}a=val;}
+    RuntimeModInt(lint val = 0){if(val >= get_mod()){val %= get_mod();}else if(val < 0){val%=get_mod();val+=get_mod();}a=val;}
     static void set_mod(const lint x) { mod() = x; }
     static lint get_mod() { return mod(); }
     RuntimeModInt operator-() {return RuntimeModInt(get_mod() - a);}//単項-演算子(-a)のオーバーロード
