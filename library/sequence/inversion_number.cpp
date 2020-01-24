@@ -8,7 +8,7 @@ i=[0,n)に対して、a[i]の小さい順にseg[i]に1を加えてsegの[i+1,n)�
 @verify https://atcoder.jp/contests/chokudai_s001/submissions/7132271
         https://atcoder.jp/contests/abc107/submissions/8990727 (<-遅いのが気がかり)
 		https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/ALDS1_5_D/judge/3828535/C++14
-(新)
+(新)lambdaセグ木に改修した
 @verify https://atcoder.jp/contests/abc107/submissions/9533993
 {an}に同じ数が含まれていても正しく動作する
 計算量はO(NlogN)
