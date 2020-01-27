@@ -35,20 +35,20 @@ public:
         return b;
         //return a+b; // 加算
     }
-    T cont(T& a,int b){ // aをb回upした値
-        if(b<=0)return elemUp;
+    T cont(T& a,int b){ // aをb回procした値
+        if(b<=0)return elemPr;
         if(b%2==0){
             T c = cont(a,b/2);
-            return up(c,c);
+            return proc(c,c);
         }else{
-            return up(a,cont(a,b-1));
+            return proc(a,cont(a,b-1));
         }
         return a;
     }
     T contSum(T& a,int b){ // procが加算のとき
         return a*b;
     }
-    T contId(T& a,int b){ // 繰り返しても同じ値になるもの(max,min,etc...)
+    T contId(T& a,int b){ // procが繰り返しても同じ値になるもの(max,min,etc...)
         return a;
     }
     LazySegmentTree(int n,T ep=0,T eu=0,int cf=0):elemPr(ep),elemUp(eu),contFlag(cf){
