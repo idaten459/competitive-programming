@@ -20,14 +20,14 @@ public:
     up(std::forward<Up>(f)), eval(std::forward<Eval>(g)),unit(unit){
         while (sz < n) sz <<= 1;
         seg.resize(sz * 2, unit);
-        index.resize(sz * 2, unit);
+        index.resize(sz * 2, 0);
     }
     explicit SegmentTree(std::vector<T> ary,Up&& f,Eval&& g,T unit=0)noexcept:
     up(std::forward<Up>(f)), eval(std::forward<Eval>(g)), unit(unit){
         const int n = (int)ary.size();
         while (sz < n) sz <<= 1;
         seg.resize(sz * 2, unit);
-        index.resize(sz * 2, unit);
+        index.resize(sz * 2, 0);
         init(ary);
     }
     void init(std::vector<T> ary){ // aryで初期化する
@@ -75,7 +75,6 @@ public:
         r += sz;
         T res = unit;
         if(exchangeable){
-            int cnt = 0;
             for (;l<r; l>>=1, r>>=1) {
                 if(r&1){
                     res = eval(res,seg[--r-1]);
