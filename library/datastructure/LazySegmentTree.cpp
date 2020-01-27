@@ -2,13 +2,21 @@
 抽象遅延セグメント木
 モノイドを載せることができる。
 upが(区間)更新関数、procが(区間)取得関数、contがupの繰り返し用関数でaddなどの特殊ケースも記述済み
+変更が必要な箇所は、up,proc,コンストラクタ呼び出し時の引数(単位元)
+単位元は、
+add : 0
+min : INT_MAX,LLONG_MAX
+max : INT_MIN,LLONG_MIN
+assign : xに登場しない数(制約に収まる値を単位元にするとやばい)
+とするとよさそう
 計算量は
 構築O(N)
 クエリO(logN)
 ただし、contがO(logN)かかるやつだとevalがO(log^2N)かかる
-@verify https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/DSL_2_E/judge/4135387/C++14
-        https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/DSL_2_A/judge/4135431/C++14
-        https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/DSL_2_G/judge/4135450/C++14
+@verify https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/DSL_2_F/judge/4135585/C++14
+        https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/DSL_2_G/judge/4135582/C++14
+        https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/DSL_2_H/judge/4135567/C++14
+        https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/DSL_2_I/judge/4135607/C++14
 */
 
 template<typename T>
