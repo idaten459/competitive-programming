@@ -7,6 +7,8 @@ upが(区間)更新関数、procが(区間)取得関数、contがupの繰り返�
 クエリO(logN)
 ただし、contがO(logN)かかるやつだとevalがO(log^2N)かかる
 @verify https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/DSL_2_E/judge/4135387/C++14
+        https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/DSL_2_A/judge/4135431/C++14
+        https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/DSL_2_G/judge/4135450/C++14
 */
 
 template<typename T>
@@ -22,16 +24,19 @@ public:
         if(b==elemUp)return a;
         if(a==elemUp)return b;
         return a+b; // 加算
-        // return b // 代入
+        //return b; // 代入
     }
     T proc(T& a,T b){ // 評価関数
         if(b==elemPr)return a;
         if(a==elemPr)return b;
-        if(a>b)return a;// max
+        //if(a>b)return a;// max
+        //return b;
+        if(a<b)return a;// min
         return b;
+        //return a+b; // 加算
     }
-    T cont(T& a,int b){ // aをb回procした値
-        if(b<=0)return elemPr;
+    T cont(T& a,int b){ // aをb回upした値
+        if(b<=0)return elemUp;
         if(b%2==0){
             T c = cont(a,b/2);
             return up(c,c);
@@ -55,11 +60,19 @@ public:
     }
     void init(std::vector<T> ary){ // aryで初期化する
         const int n = (int)ary.size();
-        for(int64_t i=0;i<n;++i){
+        for(int i=0;i<n;++i){
             set(i,ary[i]);
         }
-        for(int64_t i=sz-2;i>=0;--i){
-            proc(seg[2*i+1], seg[2*i+2]);
+        for(int i=sz-2;i>=0;--i){
+            seg[i] = proc(seg[2*i+1], seg[2*i+2]);
+        }
+    }
+    void init(T a){ // sz個の全要素をaで初期化する
+        for(int i=0;i<sz;++i){
+            set(i,a);
+        }
+        for(int i=sz-2;i>=0;--i){
+            seg[i] = proc(seg[2*i+1], seg[2*i+2]);
         }
     }
     inline void set(const int& k, const T& x) {// 左からk番目の葉にxを代入する
@@ -107,6 +120,7 @@ public:
         return proc(vl, vr);
     }
 };
+
 int main(){
     int n,q;
     cin >> n >> q;
