@@ -19,6 +19,7 @@ assign : xに登場しない数(制約に収まる値を単位元にするとや
         https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/DSL_2_I/judge/4135607/C++14
         https://yukicoder.me/submissions/421995
         https://atcoder.jp/contests/nikkei2019-final/submissions/9793866
+        https://atcoder.jp/contests/nikkei2019-2-qual/submissions/9794528
 */
 
 template<typename T>
