@@ -72,10 +72,10 @@ public:
     ModInt& operator-=(const ModInt n) { (*this) = (*this) + (Mod - n.a); return *this; }
     ModInt& operator*=(const ModInt n) { (*this) = (*this) * n; return *this; }
     ModInt& operator/=(const ModInt n) { (*this) = (*this) / n; return *this; }
-    ModInt operator++(int) { ModInt a=*this;(*this) += 1; return a; }//後置インクリメントs(++a)のオーバーロード
-    ModInt& operator++() { (*this) += 1; return *this; }//前置インクリメント(a++)のオーバーロード
-    ModInt operator--(int) { ModInt a=*this;(*this) -= 1; return a; }//後置デクリメント(--a)のオーバーロード
-    ModInt& operator--() { (*this) -= 1; return *this; }//前置デクリメント(a--)のオーバーロード
+    ModInt operator++(int) { ModInt a=*this;(*this) += 1; return a; }//後置
+    ModInt& operator++() { (*this) += 1; return *this; }//前置
+    ModInt operator--(int) { ModInt a=*this;(*this) -= 1; return a; }//後置
+    ModInt& operator--() { (*this) -= 1; return *this; }//前置
     ModInt inv() { return (ModInt)1 / (*this); }//逆数を返す関数
     bool operator<(const ModInt n) { return a < n.a; }
     bool operator<=(const ModInt n) { return a <= n.a; }
