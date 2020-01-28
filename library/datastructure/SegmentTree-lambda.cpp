@@ -12,7 +12,6 @@ private:
     const Up up; // 更新関数
     const Eval eval; // 評価関数
     std::vector<T> seg;
-    std::vector<int> index;
 public:
     int sz = 1; //　配列長n以上の最小の2冪
     const T unit; // 評価関数の単位元
@@ -20,14 +19,12 @@ public:
     up(std::forward<Up>(f)), eval(std::forward<Eval>(g)),unit(unit){
         while (sz < n) sz <<= 1;
         seg.resize(sz * 2, unit);
-        index.resize(sz * 2, 0);
     }
     explicit SegmentTree(std::vector<T> ary,Up&& f,Eval&& g,T unit=0)noexcept:
     up(std::forward<Up>(f)), eval(std::forward<Eval>(g)), unit(unit){
         const int n = (int)ary.size();
         while (sz < n) sz <<= 1;
         seg.resize(sz * 2, unit);
-        index.resize(sz * 2, 0);
         init(ary);
     }
     void init(std::vector<T> ary){ // aryで初期化する
@@ -70,35 +67,18 @@ public:
             return eval(vl, vr);
         }
     }
-    T query(int l,int r, bool exchangeable=false){// [l,r)
+    T query(int l,int r){// [l,r)
         l += sz;
         r += sz;
         T res = unit;
-        if(exchangeable){
-            for (;l<r; l>>=1, r>>=1) {
-                if(r&1){
-                    res = eval(res,seg[--r-1]);
-                }
-                if(l&1){
-                    res = eval(res,seg[l++-1]);
-                }
+        for (;l<r; l>>=1, r>>=1) {
+            if(r&1){
+                res = eval(seg[--r-1],res);
             }
-        }else{
-            int cnt = 0;
-            for (;l<r; l>>=1, r>>=1) {
-                if(r&1){
-                    index[cnt++]=--r-1;
-                }
-                if(l&1){
-                    index[cnt++]=l++-1;
-                }
-            }
-            reverse(index.begin(),index.begin()+cnt);
-            for(int i=0;i<cnt;++i){
-                res = eval(res,seg[index[i]]);
+            if(l&1){
+                res = eval(seg[l++-1],res);
             }
         }
-        
         return res;
     }
 };
