@@ -69,7 +69,7 @@ public:
 };
 
 int main(){
-    using point = point<double>
+    using point = point<double>;
     int n;
     double px,py;
     cin >> px >> py;
