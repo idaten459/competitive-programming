@@ -5,6 +5,20 @@ lcmを求めるライブラリ
 */
 
 template<typename T, typename U>
+T gcd(T u, U v) {
+	if (u == 0)return v;
+	if (v == 0)return u;
+	T r;
+	while (v) {
+		r = u % v;
+		u = v;
+		v = r;
+	}
+	return u;
+}
+
+
+template<typename T, typename U>
 long long lcm(T u, U v) {
 	long long res = (long long)u / gcd(u, v);
 	res *= v;
