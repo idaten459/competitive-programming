@@ -14,6 +14,7 @@ vector<int> demical(ll n, int k, int l = -1) {
 	if (l < 0) {
 		while (n > 0) {
 			rtn.push_back(n % k);
+			n /= k;
 		}
 	} else {
 		rtn.resize(l);
