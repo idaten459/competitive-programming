@@ -5,7 +5,7 @@ flag=false,√n以上の最小の整数
 */
 
 template<typename T>
-T sqrtInt(T n, bool flag) {
+T sqrtInt(T n, bool flag = ture) {
 	T ok = 0, ng = 0;
 	if (flag) {
 		ng = n;
