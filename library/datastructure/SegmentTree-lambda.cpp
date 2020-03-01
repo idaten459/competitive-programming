@@ -27,13 +27,13 @@ public:
         seg.resize(sz * 2, unit);
         init(ary);
     }
-    void init(std::vector<T> ary){ // aryで初期化する
+    void init(std::vector<T>& ary){ // aryで初期化する
         const int n = (int)ary.size();
         for(int64_t i=0;i<n;++i){
             set(i,ary[i]);
         }
         for(int64_t i=sz-2;i>=0;--i){
-            eval(seg[2*i+1], seg[2*i+2]);
+           seg[k] = eval(seg[2*i+1], seg[2*i+2]);
         }
     }
     void update(int k, T v) {// k番目の値をup(seg[k],v)にする
