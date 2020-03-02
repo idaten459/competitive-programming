@@ -4,6 +4,7 @@
 @verify https://atcoder.jp/contests/abc042/submissions/6726858
         https://atcoder.jp/contests/abc042/submissions/6942247 (add invfact, comb(...,invtable),)
 		https://atcoder.jp/contests/abc042/submissions/7044773 (add static)
+        https://atcoder.jp/contests/abc042/submissions/10484962　(speedup invfact)
 ！注意！
 comb使うときは、n<mの時、comb(n,m)=0とした。combは、n,mがもともとintであることが前提となっている
 Modは正が想定されるので、unsigned にしていたが、signed との比較でかなりやばが発生していたので、signedに変更
@@ -38,15 +39,21 @@ inline T fact(int_fast32_t n) {
 
 template<typename T>
 inline T invfact(int_fast32_t n) {
-    static vector<T> invtable(1, 1);
-    if (n >= (int)invtable.size()) {
-        uint_fast32_t s = invtable.size();
-        for (T i = s; i < n + 1; ++i) {
-            invtable.push_back(invtable.back() / i);
-        }
-    }
-    if (n < 0) return 1;
-    else return invtable[n];
+	static vector<T> invtable(1, 1);
+	static int_fast64_t sz = 1;
+	if (n >= sz) {
+		int_fast64_t pre = sz;
+		while (n >= sz) {
+			sz *= 2;
+		}
+		invtable.resize(sz);
+		invtable[sz - 1] = (T)1 / fact<T>(sz - 1);
+		for (int_fast32_t i = sz-1; i > pre; --i) {
+			invtable[i-1] = invtable[i]*i;
+		}
+	}
+	if (n < 0) return 1;
+	else return invtable[n];
 }
 
 template<typename T>
