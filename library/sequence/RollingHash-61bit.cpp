@@ -23,7 +23,7 @@ public:
 	arr base;
 	RollingHash() {
 		random_device seed_gen;
-		mt19937_64 engine(0);
+		mt19937_64 engine(seed_gen());
 		for (u64 i = 0; i < basesize; ++i) {
 			base[i] = (engine() & m30) + m30;
 		}
