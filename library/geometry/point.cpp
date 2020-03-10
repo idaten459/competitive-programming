@@ -14,7 +14,7 @@ public:
 		this->x = x;
 		this->y = y;
 	}
-	T p2dist(point p) {
+	T p2dist(point p) { // オーバーフローに注意
 		T dx = x - p.x;
 		T dy = y - p.y;
 		return dx * dx + dy * dy;
@@ -95,6 +95,13 @@ public:
 	void operator-=(point p) { x -= p.x; y -= p.y; }
 	void operator*=(T t) { x *= t; y *= t; }
 	void operator/=(T t) { x /= t; y /= t; }
+	bool operator<(const point& p) const { // 順序付き集合に乗せるために適当に順序付け
+		if (p.x == x) {
+			return y < p.y;
+		} else {
+			return x < p.x;
+		}
+	}
 };
 
 int main(){
