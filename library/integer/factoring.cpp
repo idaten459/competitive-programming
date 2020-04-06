@@ -2,6 +2,7 @@
 素因数分解をするライブラリ
 計算量はO(√n)
 vector<piar>の形式で返し、firstが素数、secondeが指数
+n=1の時に注意
 */
 template<class T> inline vector<pair<T,int>> factoring(T n){
     using p = pair<T,int>;
