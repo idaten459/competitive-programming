@@ -1,5 +1,4 @@
 #include "bits/stdc++.h"
-using namespace std;
 #define Rep(i,n) for(int i=0;i<(int)(n);i++)
 #define For(i,n1,n2) for(int i=(int)(n1);i<(int)(n2);i++)
 #define REP(i,n) for(ll i=0;i<(ll)(n);i++)
@@ -7,13 +6,14 @@ using namespace std;
 #define FOR(i,n1,n2) for(ll i=(ll)(n1);i<(ll)(n2);i++)
 #define RFOR(i,n1,n2) for(ll i=((ll)(n1)-1);i>=(ll)(n2);i--)
 #define all(a)  (a).begin(),(a).end()
-#define SORT(a) sort((a).begin(),(a).end())
-#define oorret 0
-#define oor(x) [&](){try{x;} catch(const out_of_range& oor){return oorret;} return x;}()
-#define IOS cin.tie(0),ios::sync_with_stdio(false)
-typedef long long ll;
-typedef unsigned long long ull;
-typedef std::pair<ll, ll> P;
+#define IOS std::cin.tie(0),std::ios::sync_with_stdio(false)
+
+namespace idaten{
+
+using namespace std;
+using ll = int_fast64_t;
+using ull = uint_fast64_t;
+using P = std::pair<int64_t, int64_t>;
 template<typename T1, typename T2> inline bool chmin(T1& a, T2 b) { if (a > b) { a = b; return 1; }return 0; }
 template<typename T1, typename T2> inline bool chmax(T1& a, T2 b) { if (a < b) { a = b; return 1; }return 0; }
 template<class Type>struct is_vector : std::false_type {};
@@ -30,3 +30,14 @@ template<class T> inline void put(const T& first) { std::cout << first << "\n"; 
 template<class T, class... N> inline void put(const T& first, const N& ... rest) { std::cout << first << " "; put(rest...); }
 inline void putn() {}
 template<class T, class... N> inline void putn(const T& first, const N& ... rest) { std::cout << first << "\n"; putn(rest...); }
+
+
+void solve(){
+    IOS;
+}
+} // namespace idaten
+
+int main(){
+    idaten::solve();
+    return 0;
+}
