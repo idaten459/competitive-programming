@@ -4,6 +4,7 @@ O(|S|)でSuffix Arrayを構築する
 O(|T|log|S|)で検索するができる。
 find_beginは先頭|T|文字だけ見たときに、t以上のsuffixとなる最小のindexを返す
 find_endは先頭|T|文字だけ見たときに、t以下のsuffixとなる最大のindexを返す
+今回の実装だと計算量正確には文字種をWとしてO(|S|+W)なのでW=10^9みたいな場合には不向き、座圧すればいいが計算量が悪化するのでしたくない
 */
 
 int get_front(vector<int>& t, vector<int>& sum, vector<int>& ch, int num) {
