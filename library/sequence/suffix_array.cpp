@@ -158,8 +158,6 @@ vector<int> sais(vector<int>& s) {
     return res;
 }
 
-void sais_rec(vector<int>& s) {}
-
 vector<int> stovi(string& s) {
     int n = s.size();
     vector<int> res(n);
