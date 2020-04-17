@@ -3,7 +3,7 @@ vector<T> lis_vec(vector<T> a, bool broad = true) {//broad=true:広義、false:�
 	int n = a.size();
 	vector<T> lis;
 	lis.push_back(a[0]);
-	FOR(i, 1, a.size()) {
+	for (int i = 1; i < a.size(); ++i) {
 		if (broad) {
 			if (lis.back() <= a[i]) {
 				lis.push_back(a[i]);
