@@ -53,7 +53,7 @@ template<typename T> inline vector<pair<T, int>> factoring(T n) {
 		if (preSize <= n) {
 			int64_t t = preSize;
 			while (t <= n) {
-				t *= 2;
+				t *= 4;
 			}
 			smallest_prime_factors.resize(t, -1);
 			for (int64_t i = 2; i < t; ++i) {
