@@ -36,11 +36,11 @@ template<typename T>
 		pair<int, int> to_cor(int num) {
 			return pair<int, int>(num / w, num % w);
 		}
-		vector<vector<int>> to_graph(T able, int arround=4) {
+		vector<vector<int>> to_graph(T disable, int arround=4) {
 			vector<vector<int>> path(h * w);
 			for (int i = 0; i < h; i++) {
 				for (int j = 0; j < w; j++) {
-					if (g[i][j] == able) {
+					if (g[i][j] != disable) {
 						for (int k = 0; k < arround; k++) {
 							int ny = i + dy[k];
 							int nx = j + dx[k];
