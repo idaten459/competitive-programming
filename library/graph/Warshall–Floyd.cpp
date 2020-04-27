@@ -17,7 +17,7 @@
 template<typename T>
 vector<vector<T>> WarshalFloyd(vector<vector<T>>& path,T inf) {
     int n = path.size();
-    vector<vector<int>> res = path;
+    vector<vector<T>> res = path;
     vector<vector<int>> next(n, vector<int>(n, 0));
     for (int i = 0; i < n; ++i) {
         res[i][i] = 0;
