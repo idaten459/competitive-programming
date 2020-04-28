@@ -1,5 +1,5 @@
 /*
-最小全域木を求めるライブラリ。
+無向グラフの最小全域木を求めるライブラリ。
 Kruskal法を用いて計算量はO(MlogM)
 unionfindを用いるので、コピペ用に一緒に載せておく
 @verify https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/GRL_2_A/judge/3959179/C++14
@@ -11,7 +11,7 @@ private:
 public:
 	UnionFind(int n) {
 		par.resize(n);
-		REP(i, n) {
+		for (int i = 0; i < n; ++i) {
 			par[i] = i;
 		}
 		height.resize(n, 0);

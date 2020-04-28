@@ -5,7 +5,7 @@ private:
 public:
 	UnionFind(int n) {
 		par.resize(n);
-		REP(i, n) {
+		for (int i = 0; i < n; ++i) {
 			par[i] = i;
 		}
 		height.resize(n, 0);
