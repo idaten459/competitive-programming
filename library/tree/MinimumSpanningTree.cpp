@@ -1,5 +1,6 @@
 /*
 無向グラフの最小全域木を求めるライブラリ。
+Kruskal法では、fromとtoは区別がないので反転して追加する必要はない。
 Kruskal法を用いて計算量はO(MlogM)
 unionfindを用いるので、コピペ用に一緒に載せておく
 @verify https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/1/GRL_2_A/judge/3959179/C++14
