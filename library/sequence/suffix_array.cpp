@@ -1,10 +1,14 @@
 /*
 文字列S,Tに対して、
-O(|S|)でSuffix Arrayを構築する
+O(|S|)でSuffix Arrayを構築する。sa[i]:=(Sのsuffixをソートしたときにi番目に現れるsuffixのSでのindex)
 O(|T|log|S|)で検索するができる。
 find_beginは先頭|T|文字だけ見たときに、t以上のsuffixとなる最小のindexを返す
 find_endは先頭|T|文字だけ見たときに、t以下のsuffixとなる最大のindexを返す
 今回の実装だと計算量正確には文字種をWとしてO(|S|+W)なのでW=10^9みたいな場合には不向き、座圧すればいいが計算量が悪化するのでしたくない
+二つの文字列を比較する際にstoviの仕様を変更する必要があることに注意(最小値を減算していて元の文字列とは異なるため)
+@verify https://leetcode.com/submissions/detail/335165113/ (lcp)
+        https://onlinejudge.u-aizu.ac.jp/status/users/idaten/submissions/5/ALDS1_14_D/judge/4342015/C++14 (sais)
+        https://atcoder.jp/contests/s8pc-2/submissions/12887727 (lcp)
 */
 
 int get_front(vector<int>& t, vector<int>& sum, vector<int>& ch, int num) {
@@ -209,6 +213,29 @@ int count(string& s, vector<int>& sa, string& str) {
     return en - beg + 1;
 }
 
+vector<int> lcp_array(vector<int>& sa, vector<int>& s) { // lcp[i]:=(sa[i],sa[i+1])のLCP
+    int n = sa.size();
+    vector<int> rank(n), lcp(n - 1);
+    for (int i = 0; i < n; ++i) {
+        rank[sa[i]] = i;
+    }
+    int h = 0;
+    for (int i = 0; i < n; ++i) {
+        if (h > 0) {
+            h--;
+        }
+        if (rank[i] > 0) {
+            for (int j = sa[rank[i] - 1]; j + h < n && i + h < n; h++) {
+                if (s[j + h] != s[i + h]) {
+                    break;
+                }
+            }
+            lcp[rank[i] - 1] = h;
+        }
+        
+    }
+    return lcp;
+}
 
 void solve() {
     string t;
