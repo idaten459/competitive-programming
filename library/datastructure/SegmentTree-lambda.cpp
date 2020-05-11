@@ -6,6 +6,8 @@ Up,Evalはともに
 (T& a,T b)を引数にとり、Tを返すことが想定されている
 ver 1.0.0 :
 致命的なバグを修正した(交換則を前提としてしまっていた)
+ver 1.0.1 :
+init(T num)のバグを修正
 @verify https://atcoder.jp/contests/agc005/submissions/9697352 (ver 0.0.0)
         https://atcoder.jp/contests/arc008/submissions/12288271 (ver 1.0.0)
 */
@@ -35,7 +37,7 @@ public:
 	}
 	void init(T num) { // sz個の全要素をaで初期化する
 		for (int64_t i = 0; i < sz; ++i) {
-			set(t, num);
+			set(i, num);
 		}
 		for (int64_t i = sz - 2; i >= 0; --i) {
 			seg[i] = eval(seg[2 * i + 1], seg[2 * i + 2]);
