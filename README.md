@@ -1,13 +1,8 @@
 # competitive-programming
 
-競技プログラミングレポジトリ
-
-
-## library
-
 競技プログラミングのライブラリ
 
-### datastructure
+## datastructure
 
 データ構造
 
@@ -16,17 +11,17 @@
 - UnionFind
 - WeightedUnionFind
 
-### Graph
+## Graph
 
 グラフに関するアルゴリズム
 
 - Bellman-Ford
 - Dijkstra
-- flow(dinic)
+- maximum flow(dinic)
 - topological sort
 - Warshall-Floyd
 
-### Integer
+## Integer
 
 整数に関するアルゴリズム
 
@@ -39,7 +34,7 @@
 - prime factor integer sequence(連続する整数の素因数分解)
 - smallest prime factors
 
-### Sequence
+## Sequence
 
 数列(文字列)に関するアルゴリズム
 
@@ -51,26 +46,10 @@
 - run length encoding
 - suffix array(SA-IS)
 
-### Tree
+## Tree
 
 木構造に関するアルゴリズム
 
 - diameter
 - minimum spanning tree
 
-以下ほぼ運用してない
-
-## code
-- 競プロでACしたコード
-
-### AtCoder
-- AtCoderでACしたコード
-
-### Codeforces
-- CodeforcesでACしたコード
-
-### yukicoder
-- yukicoderでACしたコード
-
-### leetcode
-- leetcodeでACしたコード
