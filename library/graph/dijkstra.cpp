@@ -21,10 +21,10 @@ template<typename T>
 void dijkstra(int s,vector<vector<edge<T>>>& path,vector<T>& d){
     using pi = pair<T,int>;
     priority_queue<pi,vector<pi>,greater<pi>> q;
-    q.push(P(0,s));
+    q.push(pi(0,s));
     d[s] = 0;
     while(!q.empty()){
-        P p = q.top();
+        pi p = q.top();
         q.pop();
         int v = p.second;
         if(d[v]<p.first)continue;
@@ -32,7 +32,7 @@ void dijkstra(int s,vector<vector<edge<T>>>& path,vector<T>& d){
             edge<T> e = path[v][i];
             if(d[e.to]>d[v]+e.cost){
                 d[e.to]=d[v]+e.cost;
-                q.push(P(d[e.to],e.to));
+                q.push(pi(d[e.to],e.to));
             }
         }
     }
